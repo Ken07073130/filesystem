@@ -4,7 +4,7 @@
         <el-sub-menu index="1">
             <template #title>
                 <el-icon>
-                    <location />
+                    <Location />
                 </el-icon>
                 <span>导航一</span>
             </template>
@@ -21,7 +21,7 @@
             </el-sub-menu>
         </el-sub-menu>
         <el-menu-item index="2">
-            <el-icon><icon-menu /></el-icon>
+            <el-icon></el-icon>
             <span>导航一</span>
         </el-menu-item>
         <el-menu-item index="3" disabled>

@@ -6,7 +6,6 @@ import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
 
 
-
 import App from './App.vue'
 import router from './router'
 
@@ -19,7 +18,10 @@ app.use(ElementPlus, {
     locale: zhCn,
 })
 
+
 app.use(router)
-app.use(ElementPlus)
+
 
 app.mount('#app')
+
+
