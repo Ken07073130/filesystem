@@ -40,41 +40,44 @@
                     </el-popover>
 
                 </el-header>
-                <el-main>
-                    <!--表格显示部分-->
-                    <el-table :data="tableData" style="overflow-y: auto;height:90%;width: 90vw; border-radius: 20px"
-                        highlight-current-row @current-change="handleCurrentChange">
-                        <el-table-column label="文件名" sortable width="600">
-                            <template v-slot="{ row, $index }">
-                                <!--新增行时显示编辑-->
-                                <div v-if="row.rowEditable">
-                                    <el-button icon="Folder" size="small" circle></el-button>
-                                    <el-input v-model="row.editFolderName" size="small"
-                                        style="width: 300px;margin-right: 10px;margin-left: 10px;"></el-input>
-                                    <el-button type="primary" icon="Check" size="small"
-                                        @click="postFolderCreation(row)"></el-button>
-                                    <el-button type="primary" icon="Close" size="small"
-                                        @click="toggleCreateFolder('cancel')"></el-button>
-                                </div>
-                                <div v-else style="display: flex; align-items: center;"
-                                    @mouseenter="toggleCellHoverRowIndex($index, row.type, 'enter')"
-                                    @mouseleave="toggleCellHoverRowIndex($index, row.type, 'leave')">
-                                    <el-image :src="getFileImgSrc(row.fileName, row.type)"
-                                        style="width: 30px;height: 30px;"></el-image>
-                                    <el-link :underline="false" style="margin-left: 10px;"
-                                        @click="openFolderOrPreviewFile(row.fileName, row.type, row.fileID)">{{ row.fileName
-                                        }}</el-link>
-                                    <el-button style="margin-left: auto;" size="small" icon="Download"
-                                        @click="downloadFile(row.fileName)" type="primary"
-                                        v-if="$index === this.hoverRowIndex">下载</el-button>
-                                    <span style="margin-left: auto; display:none;">{{ row.fileID }}</span>
-                                </div>
-                            </template>
-                        </el-table-column>
-                        <el-table-column prop="editTime" label="日期" sortable width="180"></el-table-column>
-                        <el-table-column prop="fileSize" label="大小" sortable width="80"></el-table-column>
-                    </el-table>
-                </el-main>
+                
+                    <el-main>
+                        <!--表格显示部分-->
+                        <el-table :data="tableData" style="overflow-y: auto;height:90%;width: 90vw; border-radius: 20px"
+                            highlight-current-row @current-change="handleCurrentChange">
+                            <el-table-column label="文件名" sortable width="600">
+                                <template v-slot="{ row, $index }">
+                                    <!--新增行时显示编辑-->
+                                    <div v-if="row.rowEditable">
+                                        <el-button icon="Folder" size="small" circle></el-button>
+                                        <el-input v-model="row.editFolderName" size="small"
+                                            style="width: 300px;margin-right: 10px;margin-left: 10px;"></el-input>
+                                        <el-button type="primary" icon="Check" size="small"
+                                            @click="postFolderCreation(row)"></el-button>
+                                        <el-button type="primary" icon="Close" size="small"
+                                            @click="toggleCreateFolder('cancel')"></el-button>
+                                    </div>
+                                    <div v-else style="display: flex; align-items: center;"
+                                        @mouseenter="toggleCellHoverRowIndex($index, row.type, 'enter')"
+                                        @mouseleave="toggleCellHoverRowIndex($index, row.type, 'leave')">
+                                        <el-image :src="getFileImgSrc(row.fileName, row.type)"
+                                            style="width: 30px;height: 30px;"></el-image>
+                                        <el-link :underline="false" style="margin-left: 10px;"
+                                            @click="openFolderOrPreviewFile(row.fileName, row.type, row.fileID)">{{
+                                                row.fileName
+                                            }}</el-link>
+                                        <el-button style="margin-left: auto;" size="small" icon="Download"
+                                            @click="downloadFile(row.fileName)" type="primary"
+                                            v-if="$index === this.hoverRowIndex">下载</el-button>
+                                        <span style="margin-left: auto; ">{{ row.fileID }}</span>
+                                    </div>
+                                </template>
+                            </el-table-column>
+                            <el-table-column prop="editTime" label="日期" sortable width="180"></el-table-column>
+                            <el-table-column prop="fileSize" label="大小" sortable width="80"></el-table-column>
+                        </el-table>
+
+                    </el-main>
             </el-container>
         </el-container>
     </el-container>
@@ -293,8 +296,13 @@ export default {
                 document.body.appendChild(link);
                 link.click();
                 // 清理并移除链接
-                document.body.removeChild(link);
-                window.URL.revokeObjectURL(url);
+
+                setTimeout(() => {
+                    document.body.removeChild(link);
+                    window.URL.revokeObjectURL(url);
+                }, 1000);
+                //document.body.removeChild(link);
+                //window.URL.revokeObjectURL(url);
             });
         },
         //前端：在表单中新建文件夹或者取消新建文件夹

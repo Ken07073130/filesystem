@@ -1,40 +1,46 @@
 <template>
-    <el-menu style="height: 100%;" active-text-color="#ffd04b" background-color="#2b384d" class="el-menu-vertical-demo" default-active="2"
-        text-color="#fff">
-        <el-sub-menu index="1">
-            <template #title>
-                <el-icon>
-                    <Location />
-                </el-icon>
-                <span>导航一</span>
-            </template>
-            <el-menu-item-group title="Group One">
-                <el-menu-item index="1-1">项目一</el-menu-item>
-                <el-menu-item index="1-2">item two</el-menu-item>
-            </el-menu-item-group>
-            <el-menu-item-group title="Group Two">
-                <el-menu-item index="1-3">item three</el-menu-item>
-            </el-menu-item-group>
-            <el-sub-menu index="1-4">
-                <template #title>item four</template>
-                <el-menu-item index="1-4-1">item one</el-menu-item>
-            </el-sub-menu>
-        </el-sub-menu>
-        <el-menu-item index="2">
-            <el-icon></el-icon>
-            <span>导航一</span>
-        </el-menu-item>
-        <el-menu-item index="3" disabled>
+    <el-menu :default-active="activeIndex" router active-text-color="#ffd04b" background-color="#2b384d" default-active="2"
+        class="el-menu-vertical-demo" text-color="#fff" style="height:100%">
+        <el-menu-item index="/">
             <el-icon>
-                <document />
+                <HomeFilled />
             </el-icon>
-            <span>导航一</span>
+            <span>主页</span>
         </el-menu-item>
-        <el-menu-item index="4">
+        <el-menu-item index="/fshome/fp">
             <el-icon>
-                <setting />
+                <Tools />
             </el-icon>
-            <span>导航一</span>
+            <span>权限管理</span>
         </el-menu-item>
+        <el-menu-item index="/fshome/group">
+            <el-icon>
+                <UserFilled />
+            </el-icon>
+            <span>成员管理</span>
+
+        </el-menu-item>
+        <!-- 其他菜单项 -->
     </el-menu>
 </template>
+  
+<script>
+export default {
+    data() {
+        return {
+            activeIndex: this.$route.path // 活动菜单项的 index 应当与当前路由的 path 相匹配
+        };
+    },
+    watch: {
+        '$route'(newRoute) {
+            this.activeIndex = newRoute.path; // 当路由变化时，更新活动菜单项的 index
+        }
+    }
+};
+</script>
+
+<style scoped>
+::v-deep .el-menu-item.is-active {
+    background-color: rgb(34, 45, 62)
+}
+</style>

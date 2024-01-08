@@ -20,6 +20,7 @@
 </template>
 
 <script>
+import { httpService } from '@/utils/httpService';
 import axios from 'axios';
 export default {
     props: ['pathNameListProp', 'selectedRowDataProp'],
@@ -103,8 +104,9 @@ export default {
             //完整的目标路径，包含文件名
             params.append('targetPath', this.targetPath + '\\' + this.fatherSelectedRow.fileName);
             // console.log(params.toString());
-            let url = 'http://localhost:11789/WebService1.asmx/MoveFileToFolder'
-            axios.post(url, params).then(response => {
+          
+            let url = '/MoveFileToFolder'
+            httpService.post(url, params).then(response => {
                 this.$message.success(response.data);
                 this.value = []; // 清空 el-cascader 的选中值
                 this.closeSelf();
